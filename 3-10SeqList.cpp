@@ -7,230 +7,213 @@ typedef int DataType;
 #define MaxSize 
 #define EXPLAND_CAPACITY 10//初始容量
 
-//静态顺序表的相关实现
-//typedef struct SeqList
-//{
-//	DataType array[MaxSize];
-//	int size;
-//}SeqList;
-//
-//void InitSeqList(SeqList* pSeq)
-//{
-//	assert(pSeq);
-//	memset(pSeq->array, 0, MaxSize*sizeof(DataType));
-//	pSeq->size = 0;
-//}
-//void PrintSeqList(SeqList* pSeq)
-//{
-//	assert(pSeq);
-//	for (int i = 0; i < pSeq->size; i++)
-//	{
-//		printf("%d\n", pSeq->array[i]);
-//	}
-//	printf("\n");
-//}
-//void PushBack(SeqList* pSeq, DataType data)
-//{
-//	assert(pSeq);
-//	if (pSeq->size == MaxSize)
-//	{
-//		printf("Capacity Is Full!\n");
-//		return;
-//	}
-//	pSeq->array[pSeq->size++] = data;
-//
-//}
-//void PopBack(SeqList* pSeq)
-//{
-//	assert(pSeq);
-//	if (0 == pSeq->size)
-//	{
-//		printf("Capacity Is Empty!\n");
-//		return;
-//	}
-//	pSeq->size--;
-//}
-//void PushFront(SeqList* pSeq, DataType data)
-//{
-//	assert(pSeq);
-//	if (pSeq->size == MaxSize)
-//	{
-//		printf("Capacity Is Full!\n");
-//		return;
-//	}
-//	int i = pSeq->size - 1;//定位到顺序表的最后一个元素
-//	for (; i >= 0; i--)
-//	{
-//		pSeq->array[i + 1] = pSeq->array[i];
-//	}
-//	pSeq->array[0] = data;
-//	pSeq->size++;
-//}
-//void PopFront(SeqList* pSeq)
-//{
-//	assert(pSeq);
-//	if (pSeq->size == 0)
-//	{
-//		printf("Capacity Is Empty!\n");
-//		return;
-//	}
-//	int i = 0;//定位到顺序表的第一个位置
-//	for (; i < pSeq->size - 1; i++)
-//	{
-//		pSeq->array[i] = pSeq->array[i + 1];
-//	}
-//	pSeq->size--;
-//
-//}
-//void Insert(SeqList* pSeq, size_t pos, DataType data)
-//{
-//	assert(pSeq);
-//	if (pSeq->size == MaxSize)
-//	{
-//		printf("Capacity Is Full!\n");
-//		return;
-//	}
-//	int i = pSeq->size - 1;
-//	for (; i >= pos; i--)
-//	{
-//		pSeq->array[i + 1] = pSeq->array[i];
-//	}
-//	pSeq->array[pos-1] = data;//因为是数组，所以插入pos-1的位置
-//	pSeq->size++;
-//}
-//void Erase(SeqList* pSeq, size_t pos)
-//{
-//	if (pSeq->size == 0)
-//	{
-//		printf("Capacity Is Empty!\n");
-//		return;
-//	}
-//
-//	int i = pos- 1;
-//	for (; i <pSeq->size-1;i++)
-//	{
-//		pSeq->array[i] = pSeq->array[i + 1];
-//	}
-//	pSeq->size--;
-//}
-//int Find(SeqList* pSeq, DataType data)
-//{
-//	for (int i = 0; i < pSeq->size - 1; i++)
-//	{
-//		if (pSeq->array[i] == data)
-//		{
-//			return i;
-//		}
-//	}
-//}
-//void Remove(SeqList* pSeq, DataType data)
-//{
-//	assert(pSeq);
-//	if (0 == pSeq)
-//	{
-//		printf("Capacity Is Empty!\n");
-//		return;
-//	}
-//
-//	for (int i = 0; i < pSeq->size - 1; i++)
-//	{
-//		if (data == pSeq->array[i])
-//		{
-//			Erase(pSeq, i+1);
-//			return;
-//		}
-//
-//	}
-//}
-//void RemoveAll(SeqList* pSeq, DataType data)
-//{
-//	assert(pSeq);
-//	if (0 == pSeq)
-//	{
-//		printf("Capacity Is Empty!\n");
-//		return;
-//	}
-//
-//	for (int i = 0; i < pSeq->size - 1; i++)
-//	{
-//		if (data == pSeq->array[i])
-//		{
-//			Erase(pSeq, i + 1);
-//		}
-//	}
-//	return;
-//}
-//void BubbleSort(SeqList* pSeq)
-//{
-//	if (0 == pSeq)
-//	{
-//		printf("Capacity Is Empty!\n");
-//			return;
-//	}
-//	int i, j;
-//	int flag = 0;
-//	for (i = 0; i < pSeq->size - 1; i++)
-//	{
-//		for (j = 0; j < pSeq->size - 1- i; j++)
-//		{
-//			if (pSeq->array[j] > pSeq->array[j + 1])
-//			{
-//				int temp = pSeq->array[j];
-//				pSeq->array[j] = pSeq->array[j + 1];
-//				pSeq->array[j + 1] = temp;
-//				flag = 1;
-//			}
-//		}
-//		if (flag == 0)
-//			break;
-//	}
-//}
-//void SelectSort(SeqList* pSeq)
-//{
-//	assert(pSeq);
-//	int i, j, k;
-//	for (i = 0; i < pSeq->size - 1; i++)
-//	{
-//		k = i;
-//		for (j = i + 1; j < pSeq->size; j++)
-//		{
-//			if (pSeq->array[k]>pSeq->array[j])
-//			{
-//				k = j;
-//			}
-//		}
-//		if (k != i)//判断第i小的数是不是在第i个位置上
-//		{
-//			int temp = pSeq->array[k];
-//			pSeq->array[k] = pSeq->array[i];
-//			pSeq->array[i] = temp;
-//		}
-//	}
-//}
-//int BinarySearch(SeqList* pSeq, DataType data)
-//{
-//	assert(pSeq);
-//	int left = 0;
-//	int right = pSeq->size - 1;
-//	int mid = left + (right - left) / 2;//防止相加溢出
-//	while (left <= right)
-//	{
-//		mid = left + (right - left) / 2;
-//		if (pSeq->array[mid] == data)
-//		{
-//			return mid + 1;//mid为数组的位置，+1是返回我们所希望的位置
-//		}
-//		else if (pSeq->array[mid] > data)
-//		{
-//			right = mid - 1;
-//		}
-//		else
-//		{
-//			left = mid + 1;
-//		}
-//	}
-//	return -1;
-//}
+静态顺序表的相关实现
+typedef struct SeqList
+{
+	DataType array[MaxSize];
+	int size;
+}SeqList;
+
+void InitSeqList(SeqList* pSeq)
+{
+	assert(pSeq);
+	memset(pSeq->array, 0, MaxSize*sizeof(DataType));
+	pSeq->size = 0;
+}
+void PrintSeqList(SeqList* pSeq)
+{
+	assert(pSeq);
+	for (int i = 0; i < pSeq->size; i++)
+	{
+		printf("%d\n", pSeq->array[i]);
+	}
+	printf("\n");
+}
+void PushBack(SeqList* pSeq, DataType data)//尾插
+{
+	assert(pSeq);
+	if (pSeq->size == MaxSize)
+	{
+		printf("Capacity Is Full!\n");
+		return;
+	}
+	pSeq->array[pSeq->size++] = data;
+
+}
+void PopBack(SeqList* pSeq)//尾删
+{
+	assert(pSeq);
+	if (0 == pSeq->size)
+	{
+		printf("Capacity Is Empty!\n");
+		return;
+	}
+	pSeq->size--;
+}
+void PushFront(SeqList* pSeq, DataType data)//头插
+{
+	assert(pSeq);
+	if (pSeq->size == MaxSize)
+	{
+		printf("Capacity Is Full!\n");
+		return;
+	}
+	int i = pSeq->size - 1;//定位到顺序表的最后一个元素
+	for (; i >= 0; i--)
+	{
+		pSeq->array[i + 1] = pSeq->array[i];
+	}
+	pSeq->array[0] = data;
+	pSeq->size++;
+}
+void PopFront(SeqList* pSeq)//头删
+{
+	assert(pSeq);
+	if (pSeq->size == 0)
+	{
+		printf("Capacity Is Empty!\n");
+		return;
+	}
+	int i = 0;//定位到顺序表的第一个位置
+	for (; i < pSeq->size - 1; i++)
+	{
+		pSeq->array[i] = pSeq->array[i + 1];
+	}
+	pSeq->size--;
+
+}
+void Insert(SeqList* pSeq, size_t pos, DataType data)//插入
+{
+	assert(pSeq);
+	if (pSeq->size == MaxSize)
+	{
+		printf("Capacity Is Full!\n");
+		return;
+	}
+	int i = pSeq->size - 1;
+	for (; i >= pos; i--)
+	{
+		pSeq->array[i + 1] = pSeq->array[i];
+	}
+	pSeq->array[pos-1] = data;//因为是数组，所以插入pos-1的位置
+	pSeq->size++;
+}
+void Erase(SeqList* pSeq, size_t pos)//删除
+{
+	if (pSeq->size == 0)
+	{
+		printf("Capacity Is Empty!\n");
+		return;
+	}
+
+	int i = pos- 1;
+	for (; i <pSeq->size-1;i++)
+	{
+		pSeq->array[i] = pSeq->array[i + 1];
+	}
+	pSeq->size--;
+}
+int Find(SeqList* pSeq, DataType data)
+{
+	for (int i = 0; i < pSeq->size - 1; i++)
+	{
+		if (pSeq->array[i] == data)
+		{
+			return i;
+		}
+	}
+}
+void Remove(SeqList* pSeq, DataType data)//移除第一个值为data的元素
+{
+	assert(pSeq);
+	if (0 == pSeq)
+	{
+		printf("Capacity Is Empty!\n");
+		return;
+	}
+
+	for (int i = 0; i < pSeq->size - 1; i++)
+	{
+		if (data == pSeq->array[i])
+		{
+			Erase(pSeq, i+1);
+			return;
+		}
+
+	}
+}
+
+void BubbleSort(SeqList* pSeq)//冒泡排序
+{
+	if (0 == pSeq)
+	{
+		printf("Capacity Is Empty!\n");
+			return;
+	}
+	int i, j;
+	int flag = 0;
+	for (i = 0; i < pSeq->size - 1; i++)
+	{
+		for (j = 0; j < pSeq->size - 1- i; j++)
+		{
+			if (pSeq->array[j] > pSeq->array[j + 1])
+			{
+				int temp = pSeq->array[j];
+				pSeq->array[j] = pSeq->array[j + 1];
+				pSeq->array[j + 1] = temp;
+				flag = 1;
+			}
+		}
+		if (flag == 0)//如果flag=0，表示没有进行排序，即原序列有序，直接结束循环
+			break;
+	}
+}
+void SelectSort(SeqList* pSeq)//选择排序
+{
+	assert(pSeq);
+	int i, j, k;
+	for (i = 0; i < pSeq->size - 1; i++)
+	{
+		k = i;
+		for (j = i + 1; j < pSeq->size; j++)
+		{
+			if (pSeq->array[k]>pSeq->array[j])
+			{
+				k = j;
+			}
+		}
+		if (k != i)//判断第i小的数是不是在第i个位置上
+		{
+			int temp = pSeq->array[k];
+			pSeq->array[k] = pSeq->array[i];
+			pSeq->array[i] = temp;
+		}
+	}
+}
+int BinarySearch(SeqList* pSeq, DataType data)//二分法查找
+{
+	assert(pSeq);
+	int left = 0;
+	int right = pSeq->size - 1;
+	int mid = left + (right - left) / 2;//防止相加溢出
+	while (left <= right)
+	{
+		mid = left + (right - left) / 2;
+		if (pSeq->array[mid] == data)
+		{
+			return mid + 1;//mid为数组的位置，+1是返回我们所希望的位置
+		}
+		else if (pSeq->array[mid] > data)
+		{
+			right = mid - 1;
+		}
+		else
+		{
+			left = mid + 1;
+		}
+	}
+	return -1;
+}
 
 //动态顺序表的实现
 
