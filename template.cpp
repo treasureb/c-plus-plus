@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string.h>
 using namespace std;
 
 //template<typename T>//此处的typename可以用class替换,但尽量用typename
@@ -40,7 +41,6 @@ using namespace std;
 //template<typename T,int N>
 //void FunTest(T (&array)[N])
 //{
-//	cout << typeid(array).name() << endl;
 //	for (int idex = 0; idex < N; ++idex)
 //	{
 //		array[idex] = 0;
@@ -49,21 +49,33 @@ using namespace std;
 //int main()
 //{
 //	int a[5];
+//	float b[5];
 //	FunTest(a);
-//	//Fumtest(&b);
+//	FunTest(b);
 //	return 0;
 //}
-template<typename T>
-T Max(const T left, const T right)
-{
-	return left > right ? left : right;
-}
-
-template<typename T>
-T Max(const T left, const T mid, const T right)
-{
-	return Max(Max(left, mid), right);
-}
+//int Max(int left, int right)
+//{
+//	cout << "调用非模板函数！" << endl;
+//	return left > right ? left : right;
+//}
+//template<typename T>
+//T Max(const T left, const T right)
+//{
+//	cout << "调用模板函数！" << endl;
+//	return left > right ? left : right;
+//}
+//int main()
+//{
+//	cout << Max(2, 4) << endl;
+//	return 0;
+//}
+//
+//template<typename T>
+//T Max(const T left, const T mid, const T right)
+//{
+//	return Max(Max(left, mid), right);
+//}
 
 template<class T>
 int compare(T t1, T t2)
@@ -81,13 +93,29 @@ int compare<const char*>(const char* const s1, const char* const s2)
 }
 int main()
 {
-	/*cout << Max(5, 7) << endl;
-	cout << Max(1, 2, 3) << endl;*/
-	const char* s3 = "1234";
-	const char* s4 = "abcd";
-	char* s1 = "abcd";
-	char* s2 = "1234";
-	cout << compare(s3, s4) << endl;
+	char* s1 = "Hello!";
+	char* s2 = "Bit!";
+	const char* s3 = "Hello!";
+	const char* s4 = "Bit!";
 	cout << compare(s1, s2) << endl;
+	cout << compare(s3, s4) << endl;
 	return 0;
 }
+
+//int main()
+//{
+//	cout << Max(5, 7) << endl;
+//	/*cout << Max(1, 2, 3) << endl;*/
+//	/*const char* s3 = "1234";
+//	const char* s4 = "abcd";
+//	char* s1 = "abcd";
+//	char* s2 = "1234";
+//	cout << compare(s3, s4) << endl;
+//	cout << compare(s1, s2) << endl;*/
+//	return 0;
+//}
+
+
+
+
+
