@@ -3,6 +3,7 @@
 typedef int DataType;
 using namespace std;
 
+#pragma warning(disable:4996)
 class Vector
 {
 public:
@@ -64,9 +65,9 @@ public:
 			cout << "Error pos!\n" << endl;
 			return;
 		}
-		for (int i = _size - 1; i >= (int)pos; i--)
+		for (int index = _size - 1; index >= (int)pos; index--)//如果i为无符号类型，则永远不会<0,故会形成死循环
 		{
-			_pData[i + 1] = _pData[i];
+			_pData[index + 1] = _pData[index];
 		}
 		_pData[pos] = data;
 		_size++;
@@ -74,35 +75,34 @@ public:
 	}
 	size_t Find(const DataType& data)const
 	{
-		for (size_t i = 0; i < _size; i++)
+		for (size_t index = 0; index < _size; index++)
 		{
-			if (_pData[i] == data)
+			if (_pData[index] == data)
 			{
-				return i;
+				return index;
 			}
 		}
 	}
-	void Clear();
-	/*size_t Size()const
+	size_t Size()const
 	{
 		return _size;
-	}*/
-	void ReSize(size_t size, const DataType& data = DataType());
+	}
+	/*void ReSize(size_t size, const DataType& data = DataType());*/
 	size_t Capacity()const
 	{
 		return _capacity;
 	}
 	void PrintfVector()
 	{
-		for (size_t i = 0; i < _size; i++)
+		for (size_t index = 0; index < _size; index++)
 		{
-			cout << _pData[i] << " ";
+			cout << _pData[index] << " ";
 		}
 		cout << "" << endl;
 	}
 	bool Empty()const
 	{
-		;
+		return 0 == _size;
 	}
 		DataType& Front()
 	{
@@ -112,11 +112,42 @@ public:
 		{
 			return _pData[_size - 1];
 		}
-	void Assign(size_t n, const DataType& data = DataType());
-	DataType& operator[](size_t index);
-	const DataType& operator[](size_t index)const;
-	DataType& At(size_t index);
-	const DataType& At(size_t index)const;
+		void Assign(size_t n, const DataType& data = DataType())
+		{
+
+		}
+	DataType& operator[](size_t index)
+	{
+		if (index > _size)
+		{
+			cout << "Error Index!\n" << endl;
+		}
+		return _pData[index];
+	}
+	const DataType& operator[](size_t index)const
+	{
+		if (index > _size)
+		{
+			cout << "Error Index!\n" << endl;
+		}
+		return _pData[index];
+	}
+	DataType& At(size_t index)
+	{
+		if (index > _size)
+		{
+			cout << "Error Index!\n" << endl;
+		}
+		return _pData[index];
+	}
+	const DataType& At(size_t index)const
+	{
+		if (index > _size)
+		{
+			cout << "Error Index!\n" << endl;
+		}
+		return _pData[index];
+	}
 private:
 	void CheckCapacity()
 	{
@@ -129,7 +160,7 @@ private:
 			_pData = temp;
 		}
 	}
-	friend std::ostream& operator<<(ostream& _cout, const Vector&v);
+	friend ostream& operator<<(ostream& _cout, const Vector&v);
 	
 private:
 	DataType* _pData;
@@ -137,18 +168,25 @@ private:
 	size_t _size;
 };
 
-//ostream& operator<<(ostream& _cout, const Vector&v)
-//{
-//	;
-//}
+ostream& operator<<(ostream& _cout, const Vector&v)
+{
+	for (size_t index = 0; index < v._size; index++)
+	{
+		cout << v._pData[index] << endl;
+	}
+	cout << "ostream!" << endl;
+	return _cout;
+}
 
 int main()
 {
 	Vector v;
 	v.PushBack(1);
 	v.PushBack(2);
-	v.PushBack(3);
 	v.PushBack(4);
+	v.PushBack(5);
+	v.Insert(2, 3);
+	v.PopBack();
 	v.Front();
 	v.Back();
 	v.PrintfVector();
