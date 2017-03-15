@@ -7,22 +7,20 @@ using namespace std;
 class Vector
 {
 public:
-	//explicit Vector(size_t capacity = 3);
-		//有size个值为data的元素
-	Vector()
+	Vector()//构造函数
 		:_pData(NULL)
 		, _capacity(0)
 		, _size(0)
 	{}
 
-	Vector(const Vector& v)
+	Vector(const Vector& v)//拷贝构造函数
 		: _pData(new DataType[v._capacity])
 		,_capacity(v._capacity)
 		, _size(v._size)
 	{
 		memcpy(_pData, v._pData, sizeof(DataType)*_size);
 	}
-	~Vector()
+	~Vector()//析构函数
 	{
 		if (_pData)
 		{
@@ -44,12 +42,12 @@ public:
 	}
 
 
-	void PushBack(const DataType& data)
+	void PushBack(const DataType& data)//尾插
 	{
 		CheckCapacity();
 		_pData[_size++] = data;
 	}
-	void PopBack()
+	void PopBack()//尾删
 	{
 		if (_size == 0)
 		{
@@ -57,7 +55,7 @@ public:
 		}
 		_size--;
 	}
-	void Insert(size_t pos, const DataType& data)
+	void Insert(size_t pos, const DataType& data)//插入
 	{
 		CheckCapacity();
 		if (pos > _size)
@@ -73,9 +71,9 @@ public:
 		_size++;
 
 	}
-	size_t Find(const DataType& data)const
+	size_t Find(const DataType& data)const//查找值为data的位置
 	{
-		for (size_t index = 0; index < _size; index++)
+		for (size_t index = 0; index < _size-1; index++)
 		{
 			if (_pData[index] == data)
 			{
@@ -83,16 +81,34 @@ public:
 			}
 		}
 	}
-	size_t Size()const
+	size_t Size()const//求size大小
 	{
 		return _size;
 	}
-	/*void ReSize(size_t size, const DataType& data = DataType());*/
-	size_t Capacity()const
+	void ReSize(size_t size, const DataType& data = DataType())//重新指定有效元素的个数
+	{
+		if (_size == size)
+		{
+			return;
+		}
+		else if (_size > size)
+		{
+			_size = size;
+		}
+		else
+		{
+			DataType* temp = (DataType*)malloc(size*sizeof(DataType));
+			//memset();
+
+		
+		}
+
+	}
+	size_t Capacity()const//Capacity的大小
 	{
 		return _capacity;
 	}
-	void PrintfVector()
+	void PrintfVector()//打印Vector
 	{
 		for (size_t index = 0; index < _size; index++)
 		{
@@ -100,15 +116,15 @@ public:
 		}
 		cout << "" << endl;
 	}
-	bool Empty()const
+	bool Empty()const//判空
 	{
 		return 0 == _size;
 	}
-		DataType& Front()
+		DataType& Front()//返回第一个位置上的数值
 	{
 		return _pData[0];
 	}
-		const DataType& Back()const
+		const DataType& Back()const//返回最后一个位置上的数值
 		{
 			return _pData[_size - 1];
 		}
@@ -116,7 +132,8 @@ public:
 		{
 
 		}
-	DataType& operator[](size_t index)
+	//[]操作符的重载：
+		DataType& operator[](size_t index)
 	{
 		if (index > _size)
 		{
@@ -149,7 +166,7 @@ public:
 		return _pData[index];
 	}
 private:
-	void CheckCapacity()
+	void CheckCapacity()//检查Capacity，若空间不足，则进行扩容
 	{
 		if (_size == _capacity)
 		{
@@ -186,9 +203,12 @@ int main()
 	v.PushBack(4);
 	v.PushBack(5);
 	v.Insert(2, 3);
-	v.PopBack();
+	//v.PopBack();
 	v.Front();
 	v.Back();
 	v.PrintfVector();
 	return 0;
 }
+
+
+
