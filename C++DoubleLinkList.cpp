@@ -10,7 +10,7 @@ typedef int DataType;
 
 struct Node
 {
-	Node(const DataType& data)
+	Node(const DataType& data)//øΩ±¥ππ‘Ï
 	: _data(data)
 	, _pNext(NULL)
 	, _pPre(NULL)
