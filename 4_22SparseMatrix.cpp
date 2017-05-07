@@ -125,7 +125,46 @@ public:
 		//	//std::swap(_sm[i]._row, _sm[i]._col);
 		//	//sm._sm.push_back(Trituple<T>(_sm[i]._col, _sm[i]._row, _sm[i]._data));必须是行优先打印
 		//}
-		return sm;
+		//return sm;
+
+	SparseMatrix<T> operator+(const  SparseMatrix<T>& sp)
+		{
+			assert(_row == sp._row&&_col == sp._col);
+			SparseMatrix<T> ret;
+			ret._row = _row;
+			ret._col = _col;
+			ret._invalid = _invalid;
+			int leftAddr = 0;
+			int rightAddr = 0;
+			int iLidx = 0;
+			int iRidx = 0;
+			while (iLidx < _sm.size() && iRidx < sp.sm.size())
+			{
+				leftAddr = _sm[i]._row*_col + _sm[i]._col;
+				rightAddr = _sm[iRidx]._row*_col + _sm[iRidx]._col;
+				if (leftAddr>rightAddr)
+				{
+					ret._sm.push_back(sp._sm[iRight]);
+					iRidex++;
+				}
+			}
+			else
+			{
+				Trituple<T>.temp(_sm[iRidx]);
+				temp._data += sp._sm[iRidx]._data;
+				if (temp._data != _invalid)
+					ret._sm.push_back(temp);
+
+				iLidx++;
+				iRidx++;
+			}
+		}
+		while (iLidx < _sm.size())
+			ret._sm.push_back(_sm.[iLidx++]);
+		while (iRidx < _sm.size())
+			ret._sm.push_back(sp._sm[iRidx++]);
+
+		return ret;
 	}
 private:
 	vector<Trituple<T>> _sm;

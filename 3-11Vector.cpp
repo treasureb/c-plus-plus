@@ -128,10 +128,7 @@ public:
 		{
 			return _pData[_size - 1];
 		}
-		void Assign(size_t n, const DataType& data = DataType())
-		{
 
-		}
 	//[]²Ù×÷·ûµÄÖØÔØ£º
 		DataType& operator[](size_t index)
 	{
