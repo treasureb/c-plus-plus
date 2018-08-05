@@ -10,8 +10,9 @@
 class NoCopy{
 public:
     NoCopy();
+    NoCopy(NoCopy& copy) = delete;
 private:
-    NoCopy(NoCopy& copy);
+    //NoCopy(NoCopy& copy);
     NoCopy& operator=(const NoCopy& copy);
     int val_;
 };
